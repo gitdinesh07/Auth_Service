@@ -3,7 +3,6 @@ const config = require('./config/serverConfig');
 const bodyParser = require('body-parser');
 const apiRoutes = require('../src/routes/index');
 
-
 const app = express();
 const prepareAndStartServer = () =>{
     app.use(bodyParser.json());
@@ -11,7 +10,7 @@ const prepareAndStartServer = () =>{
 
     app.use('/api',apiRoutes);
 
-    app.listen(config.PORT, ()=>{
+    app.listen(config.PORT, async ()=>{
         console.log(`server has started on Port:${config.PORT}!`);
     })
 }

@@ -7,9 +7,9 @@ class UserRepository
             const user = await User.create(data);
             return user;
         }
-        catch(err) {
+        catch(error) {
             console.log("some error at repository layer");
-            throw err;
+            throw error;
         }
     }
 
@@ -22,9 +22,20 @@ class UserRepository
                 }
             })
         }
-        catch(err) {
+        catch(error) {
             console.log("some error at repository layer");
-            throw err;
+            throw error;
+        }
+    }
+
+    async getById(userId){
+        try {
+            return await User.findByPk(userId,{
+                attributes:['email','id']
+            });
+        } catch (error) {
+            console.log("some error at repository layer");
+            throw error;
         }
     }
 }
