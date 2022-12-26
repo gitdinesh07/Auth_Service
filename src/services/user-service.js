@@ -1,5 +1,5 @@
 const UserRepository = require('../repositories/user-repository');
-
+const bycrpt = require('bcrypt');
 class UserService {
     constructor(){
         this.userRepository = new UserRepository();
@@ -14,7 +14,15 @@ class UserService {
             throw error;
         }       
     }
-
+    checkPassword(plainPassword, encryptedPassword){
+        try {
+            let isMatch = bycrpt.compareSync(plainPassword,encryptedPassword);
+            return isMatch;
+        } catch (error) {
+            console.log('error occured in check password');
+            throw error;
+        }
+    }
 }
 
 module.exports = UserService;
