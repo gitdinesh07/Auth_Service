@@ -10,8 +10,9 @@ const prepareAndStartServer = () =>{
 
     app.use('/api',apiRoutes);
 
-    app.listen(config.PORT, async ()=>{
+    app.listen(config.PORT,  ()=>{
         console.log(`server has started on Port:${config.PORT}!`);
+
     })
 }
 
