@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 
 class TokenService
 {
-    createToken(data) {
+    createToken(user) {
         try {
-            let token = jwt.sign(data,JWT_KEY,{expiresIn:'1h'});
+            let token = jwt.sign(user,JWT_KEY,{expiresIn:'1h'});
             return token;
         } catch (error) {
             console.log(error);

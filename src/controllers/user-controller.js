@@ -1,3 +1,4 @@
+const user = require('../models/user');
 const UserService = require('../services/user-service');
 
 
@@ -26,6 +27,27 @@ const create = async (req,res)=>{
     }
 }
 
+const signIn = async (req,res)=>{
+    try {
+        const getResponse = await userService.signIn(req.body.email,req.body.password);
+        return res.status(201).json({
+            success:true,
+            token:getResponse,
+            message:'successfully token created',
+            err:null
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message:'error occured',
+            data:null,
+            success:false,
+            err:error
+        })
+    }
+}
+
 module.exports={
-    create
+    create,
+    signIn
 }
