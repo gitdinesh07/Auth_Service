@@ -33,14 +33,14 @@ class UserService {
                 let isPasswordMatch = this.checkPassword(password, user.password);               
                 if(isPasswordMatch){
                     let tokenService = new TokenService();
-                    const getToken = await tokenService.createToken(user);
+                    const getToken = await tokenService.createToken({email:user.email,userId:user.id});
                     return getToken;
                 }
                 else
-                   return 'password incorrect';       
+                    throw {error:  'password incorrect'};       
             }
             else
-                return 'this email does not exist';       
+                throw {error: 'this email does not exist'};       
         } catch (error) {
             console.log('error occured in signIn');
             throw error;

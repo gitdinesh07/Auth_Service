@@ -41,11 +41,12 @@ class UserRepository
 
     async getByEmail(emailId){
         try {
-            return await User.findOne({
+            const user =  await User.findOne({
                 where:{
                     email:emailId
                 }
             });
+            return user;
         } catch (error) {
             console.log("some error at repository layer");
             throw error;
