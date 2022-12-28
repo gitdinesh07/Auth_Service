@@ -46,6 +46,24 @@ class UserService {
             throw error;
         }
     }
+
+    async isAuthenticated(token){
+        try {
+            const tokenService = new TokenService();
+            const getResponse = tokenService.verifyToken(token);
+            if(!getResponse){
+                throw {error:'invalid token'};
+            }
+            //check whether user still exist or active or not
+            const user = this.userRepository.getById(getResponse.id);
+            if(!user){
+                throw {error:'user not exist anymore with corresponding token'}
+            }
+            return user.id;         
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = UserService;

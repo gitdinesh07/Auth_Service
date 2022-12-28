@@ -47,7 +47,32 @@ const signIn = async (req,res)=>{
     }
 }
 
+const isAuthenticated = async (req, res)=>{
+    try {
+        const getToken = req.headers['x-access-token'];
+        if(getToken){
+            const response = await userService.isAuthenticated(getToken);
+            res.status(200).json({
+                success:true,
+                message:'user authenticated successfully',
+                data:response
+            })
+        }
+        else
+            throw {error:'access token missing'}
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message:'error occured at isAuthenticated',
+            data:null,
+            success:false,
+            err:error
+        })
+    }
+    
+}
 module.exports={
     create,
-    signIn
+    signIn,
+    isAuthenticated
 }
